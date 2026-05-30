@@ -1,65 +1,115 @@
+"use client"
+
+import { useState } from "react"
 import Image from "next/image";
+import TerminalDemo from "@/components/terminal-demo";
+import { MagicCard } from "@/components/ui/magic-card";
+import Link from "next/link"
+import { useTheme } from "next-themes"
+import { Button } from "@/components/ui/button"
+import { MagicCardDemo } from "@/components/ui/magic-card-demo"
+import { CommandList } from "@/components/command-list"
+import { AboutSection } from "@/components/sections/AboutSection"
+import { ProjectSection } from "@/components/sections/ProjectSection"
+import { SkillsSection } from "@/components/sections/SkillsSection"
+import { ContactSection } from "@/components/sections/ContactSection"
+import { About2Section } from "@/components/sections/About2Section"
+import { About3Section } from "@/components/sections/About3Section"
+
+type SectionKey = "about" | "about-2" | "about-3" | "projects" | "skills" | "contact"
+
 
 export default function Home() {
+    const [sections, setSections] = useState<Record<SectionKey, boolean>>({
+    about: false,
+    "about-2": false,
+    "about-3": false,
+    projects: false,
+    skills: false,
+    contact: false,
+  })
+
+const [sectionOrder, setSectionOrder] = useState<SectionKey[]>([])
+
+const handleCommand = (cmd: string) => {
+  // Handle "about" — opens all three at once
+  if (cmd === "about") {
+    setSections((prev) => ({ ...prev, about: true, "about-2": true, "about-3": true }))
+    setSectionOrder((prev) => {
+      const toAdd = (["about", "about-2", "about-3"] as SectionKey[]).filter(k => !prev.includes(k))
+      return [...prev, ...toAdd]
+    })
+    return
+  }
+
+  // Handle all other individual section commands
+  if (cmd in sections) {
+    const key = cmd as SectionKey
+    if (!sections[key]) {
+      setSections((prev) => ({ ...prev, [key]: true }))
+      setSectionOrder((prev) => [...prev, key])
+    }
+    return
+  }
+
+  if (cmd.startsWith("close:")) {
+    const section = cmd.replace("close:", "") as SectionKey
+    setSections((prev) => ({ ...prev, [section]: false }))
+    setSectionOrder((prev) => prev.filter((s) => s !== section))
+    return
+  }
+
+  if (cmd === "clear") {
+    setSections({ about: false, "about-2": false, "about-3": false, projects: false, skills: false, contact: false })
+    setSectionOrder([])
+  }
+}
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-background flex flex-col items-center">
+      <div className="flex items-start gap-6 justify-center py-16 w-full">
+        <div className="w-64 shrink-0">
+          <CommandList />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="w-[600px] shrink-0">
+          <TerminalDemo   
+            onCommand={handleCommand} 
+            onClear={() => {
+              setSections({ about: false, projects: false, skills: false, contact: false, "about-2": false, "about-3": false })
+              setSectionOrder([])
+            }} 
+          />
         </div>
-      </main>
+        <div className="w-64 shrink-0">
+          <MagicCardDemo />
+        </div>
+      </div>
+
+
+    <div className="flex flex-col gap-6 pb-16">
+
+      {/* About sections — side by side */}
+      {( sections["about-2"] || sections.about || sections["about-3"]) && (
+        <div className="flex flex-row gap-6">
+          
+          {sections["about-2"] && <About2Section visible={sections["about-2"]} />}
+          {sections.about && <AboutSection visible={sections.about} />}
+          {/* {sections["about-3"] && <About3Section visible={sections["about-3"]} />} */}
+        </div>
+      )}
+
+      {/* Other sections — stacked */}
+      {sectionOrder
+        .filter(k => !["about", "about-2", "about-3"].includes(k))
+        .map((key) => {
+          if (key === "projects") return <ProjectSection key={key} visible={sections.projects} />
+          if (key === "skills") return <SkillsSection key={key} visible={sections.skills} />
+          if (key === "contact") return <ContactSection key={key} visible={sections.contact} />
+        })}
+
     </div>
-  );
+
+
+    </main>
+  )
 }
