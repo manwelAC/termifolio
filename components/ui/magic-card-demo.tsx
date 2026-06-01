@@ -25,11 +25,13 @@ export function MagicCardDemo() {
     ? (theme === "system" ? systemTheme : theme) === "dark"
     : true
   return (
-    <Card className="w-full max-w-sm border-none p-0 shadow-none">
+    <Card className="w-full max-w-sm border-none rounded-xl p-0 shadow-none">
       <MagicCard
         mode="orb"
         glowFrom={isDark ? "#ee4f27" : "#E9D5FF"}
         glowTo={isDark ? "#6b21ef" : "#FBCFE8"}
+        glowOpacity={1}
+        glowSize={500}
         className="p-0"
       >
         <CardHeader className="border-border border-b p-4 [.border-b]:pb-4">

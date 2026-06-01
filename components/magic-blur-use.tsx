@@ -24,23 +24,28 @@ export function BlurFadeTextDemo() {
 
       <BlurFade delay={0.25 * 4} inView>
         <p className="text-base leading-relaxed text-white/70 font-sans">
-          My journey started with ERP and payroll solutions, and I've since deployed and
-          supported <span className="text-white font-medium">10 live systems</span> that
-          help businesses run more efficiently.
+          My journey started at <span className="text-white font-medium">Intracode IT Solutions</span>, 
+          where I refactored and redesigned {" "} an Enterprise Booking System for an Aesthetic Company, improving performance and user experience. 
         </p>
       </BlurFade>
 
-      <BlurFade delay={0.25 * 5} inView>
+      <BlurFade delay={0.25 * 4.5} inView>
         <p className="text-base leading-relaxed text-white/70 font-sans">
-          I specialize in{" "}
-          <span className="text-white font-medium">RESTful API development</span>,{" "}
-          <span className="text-white font-medium">database design</span>, and{" "}
-          <span className="text-white font-medium">ERP architecture</span> — always
-          connecting solid backend logic with clean, intuitive frontends. Whether it's
-          automating payroll workflows or experimenting with mobile development using
-          React Native, I enjoy building solutions that balance performance with usability.
+         I transitioned into a <span className="text-white font-medium">Junior Fullstack Developer</span>, deploying and supporting <span className="text-white font-medium">10+ live Custom Web System and Payroll Solutions</span> that help businesses run smoothly.
         </p>
       </BlurFade>
+
+   <BlurFade delay={0.25 * 5} inView>
+  <p className="text-base leading-relaxed text-white/70 font-sans">
+    Lately, I've been deepening my focus on{" "}
+    <span className="text-white font-medium">System Architecture</span> and{" "}
+    <span className="text-white font-medium">Database Design</span> — not just to write
+    better backend code, but to build systems that are structured well enough for{" "}
+    <span className="text-white font-medium">AI to reason about effectively</span>.
+    The better the architecture, the more I can leverage AI as a real development tool —
+    not just for boilerplate, but for meaningful problem-solving across the stack.
+  </p>
+</BlurFade>
 
       <BlurFade delay={0.25 * 6} inView>
         <p className="text-base leading-relaxed text-white/60 font-sans italic border-l-2 border-white/20 pl-4">

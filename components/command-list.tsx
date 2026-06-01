@@ -33,7 +33,7 @@ export function CommandList() {
     : true
 
   return (
-    <Card className="w-full max-w-sm border-none p-0 shadow-none">
+    <Card className="w-full max-w-sm border-none rounded-xl p-0 shadow-none">
       <MagicCard
         mode="orb"
         glowFrom={isDark ? "#ee4f27" : "#E9D5FF"}

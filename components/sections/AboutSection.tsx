@@ -16,12 +16,10 @@ export function AboutSection({ visible }: AboutSectionProps) {
   }, [visible])
 
   return (
-    <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
-      animate ? "max-w-[600px] opacity-100" : "max-w-0 opacity-0"
-    }`}>
-      <div className="w-[600px] p-8 border border-neutral-800 rounded-lg">
-        <BlurFadeTextDemo />
-      </div>
-    </div>
+<div className="flex-1 min-w-0">
+  <div className="h-full p-8 border border-neutral-800 rounded-lg">
+    <BlurFadeTextDemo />
+  </div>
+</div>
   )
 }

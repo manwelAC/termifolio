@@ -12,58 +12,76 @@ import { CommandList } from "@/components/command-list"
 import { AboutSection } from "@/components/sections/AboutSection"
 import { ProjectSection } from "@/components/sections/ProjectSection"
 import { SkillsSection } from "@/components/sections/SkillsSection"
-import { ContactSection } from "@/components/sections/ContactSection"
 import { About2Section } from "@/components/sections/About2Section"
 import { About3Section } from "@/components/sections/About3Section"
+import { ContactDrawer } from "@/components/sections/ContactDrawer"
 
-type SectionKey = "about" | "about-2" | "about-3" | "projects" | "skills" | "contact"
-
+type SectionKey = "about" | "about-2" | "about-3" | "projects" | "skills"  // ← removed contact
 
 export default function Home() {
-    const [sections, setSections] = useState<Record<SectionKey, boolean>>({
+  const [sections, setSections] = useState<Record<SectionKey, boolean>>({
     about: false,
     "about-2": false,
     "about-3": false,
     projects: false,
     skills: false,
-    contact: false,
+    // ← no more contact here
   })
 
-const [sectionOrder, setSectionOrder] = useState<SectionKey[]>([])
+  const [sectionOrder, setSectionOrder] = useState<SectionKey[]>([])
+  const [contactOpen, setContactOpen] = useState(false)  // ← new
 
-const handleCommand = (cmd: string) => {
-  // Handle "about" — opens all three at once
-  if (cmd === "about") {
-    setSections((prev) => ({ ...prev, about: true, "about-2": true, "about-3": true }))
-    setSectionOrder((prev) => {
-      const toAdd = (["about", "about-2", "about-3"] as SectionKey[]).filter(k => !prev.includes(k))
-      return [...prev, ...toAdd]
-    })
-    return
-  }
-
-  // Handle all other individual section commands
-  if (cmd in sections) {
-    const key = cmd as SectionKey
-    if (!sections[key]) {
-      setSections((prev) => ({ ...prev, [key]: true }))
-      setSectionOrder((prev) => [...prev, key])
+  const handleCommand = (cmd: string): string[] => {
+    if (cmd === "contact") {
+      setContactOpen(true)
+      return []
     }
-    return
-  }
 
-  if (cmd.startsWith("close:")) {
-    const section = cmd.replace("close:", "") as SectionKey
-    setSections((prev) => ({ ...prev, [section]: false }))
-    setSectionOrder((prev) => prev.filter((s) => s !== section))
-    return
-  }
+    if (cmd === "close:contact") {
+      setContactOpen(false)
+      return []
+    }
 
-  if (cmd === "clear") {
-    setSections({ about: false, "about-2": false, "about-3": false, projects: false, skills: false, contact: false })
-    setSectionOrder([])
+    if (cmd === "about") {
+      setSections((prev) => ({ ...prev, about: true, "about-2": true, "about-3": true }))
+      setSectionOrder((prev) => {
+        const toAdd = (["about", "about-2", "about-3"] as SectionKey[]).filter(k => !prev.includes(k))
+        return [...prev, ...toAdd]
+      })
+      return []
+    }
+
+    if (cmd in sections) {
+      const key = cmd as SectionKey
+      if (!sections[key]) {
+        setSections((prev) => ({ ...prev, [key]: true }))
+        setSectionOrder((prev) => [...prev, key])
+      }
+      return []
+    }
+
+    if (cmd.startsWith("close:")) {
+      const section = cmd.replace("close:", "")
+      const keysToClose: SectionKey[] = section === "about"
+        ? ["about", "about-2", "about-3"]
+        : [section as SectionKey]
+      setSections((prev) => {
+        const next = { ...prev }
+        keysToClose.forEach((k) => { next[k] = false })
+        return next
+      })
+      setSectionOrder((prev) => prev.filter((s) => !keysToClose.includes(s)))
+      return []
+    }
+
+    if (cmd === "clear") {
+      setSections({ about: false, "about-2": false, "about-3": false, projects: false, skills: false })
+      setSectionOrder([])
+      return []
+    }
+
+    return ["command not found: " + cmd + ". Type 'help' for available commands."]
   }
-}
 
   return (
     <main className="min-h-screen bg-background flex flex-col items-center">
@@ -72,12 +90,13 @@ const handleCommand = (cmd: string) => {
           <CommandList />
         </div>
         <div className="w-[600px] shrink-0">
-          <TerminalDemo   
-            onCommand={handleCommand} 
+          <TerminalDemo
+            onCommand={handleCommand}
             onClear={() => {
-              setSections({ about: false, projects: false, skills: false, contact: false, "about-2": false, "about-3": false })
+              setSections({ about: false, projects: false, skills: false, "about-2": false, "about-3": false })
               setSectionOrder([])
-            }} 
+              setContactOpen(false)
+            }}
           />
         </div>
         <div className="w-64 shrink-0">
@@ -85,30 +104,23 @@ const handleCommand = (cmd: string) => {
         </div>
       </div>
 
+      <div className="flex flex-col gap-6 pb-16">
+        {(sections["about-2"] || sections.about || sections["about-3"]) && (
+          <div className="flex flex-row gap-6">
+            {sections["about-2"] && <About2Section visible={sections["about-2"]} />}
+            {sections.about && <AboutSection visible={sections.about} />}
+          </div>
+        )}
 
-    <div className="flex flex-col gap-6 pb-16">
+        {sectionOrder
+          .filter(k => !["about", "about-2", "about-3"].includes(k))
+          .map((key) => {
+            if (key === "projects") return <ProjectSection key={key} visible={sections.projects} />
+            if (key === "skills") return <SkillsSection key={key} visible={sections.skills} />
+          })}
+      </div>
 
-      {/* About sections — side by side */}
-      {( sections["about-2"] || sections.about || sections["about-3"]) && (
-        <div className="flex flex-row gap-6">
-          
-          {sections["about-2"] && <About2Section visible={sections["about-2"]} />}
-          {sections.about && <AboutSection visible={sections.about} />}
-          {/* {sections["about-3"] && <About3Section visible={sections["about-3"]} />} */}
-        </div>
-      )}
-
-      {/* Other sections — stacked */}
-      {sectionOrder
-        .filter(k => !["about", "about-2", "about-3"].includes(k))
-        .map((key) => {
-          if (key === "projects") return <ProjectSection key={key} visible={sections.projects} />
-          if (key === "skills") return <SkillsSection key={key} visible={sections.skills} />
-          if (key === "contact") return <ContactSection key={key} visible={sections.contact} />
-        })}
-
-    </div>
-
+      <ContactDrawer open={contactOpen} onOpenChange={setContactOpen} />
 
     </main>
   )
