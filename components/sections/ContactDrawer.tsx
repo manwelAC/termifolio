@@ -50,7 +50,7 @@ const socials = [
   {
     label: "Gmail",
     handle: "johnmanuelcuerdo@gmail.com",
-    href: "mailto:johnmanuelcuerdo@gmail.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=johnmanuelcuerdo@gmail.com&su=Let's%20Connect&body=Hi%20John,%0A%0AI'd%20like%20to%20discuss%20a%20potential%20project%20or%20collaboration.%0A%0ALooking%20forward%20to%20hearing%20from%20you!",
     icon: SiGmail,
     color: "hover:text-red-400",
     preview: null, // no preview

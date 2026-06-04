@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { cn } from "@/lib/utils";
 
 const KEY_SOUNDS_DOWN: Record<string, [number, number]> = {
@@ -115,15 +115,20 @@ export interface TerminalProps {
   enableSound?: boolean;
   onCommand?: (command: string) => string[];
   onClear?: () => void;
+  onDelayedOutput?: (lines: string[], delay: number) => void;
 }
 
-export function Terminal({
+export interface TerminalRef {
+  addLine: (line: string) => void;
+}
+
+export const Terminal = forwardRef<TerminalRef, TerminalProps>(({
   username = "manuel-portfolio",
   className,
   enableSound = true,
   onCommand,
   onClear,
-}: TerminalProps) {
+}, ref) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { down, up } = useAudio(enableSound);
@@ -135,6 +140,12 @@ export function Terminal({
   const [cursorVisible, setCursorVisible] = useState(true);
   const [history, setHistory] = useState<string[]>([]);
   const [historyIdx, setHistoryIdx] = useState(-1);
+
+  useImperativeHandle(ref, () => ({
+    addLine: (line: string) => {
+      setLines((prev) => [...prev, { type: "output", content: line }])
+    }
+  }))
 
   useEffect(() => {
     const interval = setInterval(() => setCursorVisible((v) => !v), 530);
@@ -192,6 +203,7 @@ export function Terminal({
     }
   }; // ← fixed: was missing this
 
+  
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     up(e.key === " " ? " " : e.key.length === 1 ? e.key : e.key);
   };
@@ -260,4 +272,8 @@ export function Terminal({
       />
     </div>
   );
-} 
+});
+
+Terminal.displayName = "Terminal";
+
+

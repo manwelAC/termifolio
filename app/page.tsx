@@ -15,10 +15,16 @@ import { SkillsSection } from "@/components/sections/SkillsSection"
 import { About2Section } from "@/components/sections/About2Section"
 import { About3Section } from "@/components/sections/About3Section"
 import { ContactDrawer } from "@/components/sections/ContactDrawer"
+import { SplashScreen } from "@/components/SplashScreen"
+
+
 
 type SectionKey = "about" | "about-2" | "about-3" | "projects" | "skills"  // ← removed contact
 
 export default function Home() {
+
+  const [showSplash, setShowSplash] = useState(true)
+
   const [sections, setSections] = useState<Record<SectionKey, boolean>>({
     about: false,
     "about-2": false,
@@ -30,6 +36,19 @@ export default function Home() {
 
   const [sectionOrder, setSectionOrder] = useState<SectionKey[]>([])
   const [contactOpen, setContactOpen] = useState(false)  // ← new
+
+  const whoamiLines = [
+  "a fullstack dev who turns coffee into code.",
+  "building things that actually work — mostly.",
+  "laravel by day, react native by night.",
+  "somewhere between a backend purist and a frontend perfectionist.",
+  "the guy who reads docs for fun.",
+  "currently obsessed with clean UI and dirty SQL.",
+  "a developer who cares too much about font choices.",
+  "shipping projects before they're perfect. always.",
+  "IoT, mobile, web — if it runs code, I'm interested.",
+  "manuel. fullstack. termiportfolio.",
+]
 
   const handleCommand = (cmd: string): string[] => {
     if (cmd === "contact") {
@@ -80,10 +99,16 @@ export default function Home() {
       return []
     }
 
+    if (cmd === "whoami") {
+      return [whoamiLines[Math.floor(Math.random() * whoamiLines.length)]]
+    }
+
     return ["command not found: " + cmd + ". Type 'help' for available commands."]
   }
 
   return (
+    <>
+    {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
     <main className="min-h-screen bg-background flex flex-col items-center">
       <div className="flex items-start gap-6 justify-center py-16 w-full">
         <div className="w-64 shrink-0">
@@ -123,5 +148,6 @@ export default function Home() {
       <ContactDrawer open={contactOpen} onOpenChange={setContactOpen} />
 
     </main>
+    </>
   )
 }

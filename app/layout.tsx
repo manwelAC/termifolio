@@ -9,6 +9,11 @@ const lora = Lora({ subsets: ["latin"], variable: "--font-lora" })
 export const metadata: Metadata = {
   title: "Manuel Cuerdo",
   description: "Portfolio",
+  icons: {
+    icon: "https://res.cloudinary.com/dtubbpgft/image/upload/avatar_ukkhkw",
+    shortcut: "https://res.cloudinary.com/dtubbpgft/image/upload/avatar_ukkhkw",
+    apple: "https://res.cloudinary.com/dtubbpgft/image/upload/avatar_ukkhkw",
+  },
 };
 
 export default function RootLayout({

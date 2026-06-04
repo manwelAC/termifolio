@@ -2,6 +2,14 @@
 
 import { useEffect, useState } from "react"
 
+const skills = {
+  Languages: ["PHP", "JavaScript", "TypeScript"],
+  Frontend: ["React", "React Native", "Next.js", "Bootstrap", "Radix UI"],
+  Backend: ["Laravel", "Node.js"],
+  Database: ["MySQL", "PostgreSQL", "Firebase"],
+  "DevOps & Tools": ["Vercel", "GitHub Actions", "Laravel Cloud"],
+}
+
 interface SkillsSectionProps {
   visible: boolean
 }
@@ -20,9 +28,37 @@ export function SkillsSection({ visible }: SkillsSectionProps) {
     <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
       animate ? "max-w-[1200px] opacity-100" : "max-w-0 opacity-0"
     }`}>
-      <div className="w-[1200px] p-8 border border-neutral-800 rounded-lg">
-        <h2 className="text-xl font-bold text-foreground mb-4 font-mono">skills</h2>
-        <p className="text-muted-foreground font-sans">Skills section placeholder</p>
+      <div className="w-[1200px] p-8 border border-neutral-800 rounded-lg space-y-6">
+
+        {/* Header */}
+        <div className="border-b border-neutral-800 pb-4">
+          <p className="font-mono text-[10px] tracking-widest text-neutral-500 uppercase mb-1">Stack</p>
+          <h2 className="text-2xl text-foreground font-normal" style={{ fontFamily: "Lora, serif" }}>
+            Things I build <span className="italic">with.</span>
+          </h2>
+        </div>
+
+        {/* Skill groups */}
+        <div className="grid grid-cols-2 gap-x-12 gap-y-6">
+          {Object.entries(skills).map(([category, items]) => (
+            <div key={category}>
+              <p className="font-mono text-[10px] tracking-widest text-neutral-500 uppercase mb-3">
+                {category}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {items.map((skill) => (
+                  <span
+                    key={skill}
+                    className="font-mono text-[11px] tracking-wider uppercase px-2.5 py-1 rounded border border-neutral-800 text-neutral-400 bg-neutral-900 hover:border-neutral-600 hover:text-neutral-200 transition-all duration-200"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </div>
   )

@@ -11,8 +11,7 @@ export type Project = {
   year: string;
   stack: string[];
   src: string;
-  ctaText: string;
-  ctaLink: string;
+
   content: () => React.ReactNode;
 };
 
@@ -23,8 +22,7 @@ const projects: Project[] = [
     year: "2025",
     stack: ["PHP", "Laravel", "MySQL", "Javascript", "Bootstrap"],
     src: "imajica_ho8tqk",
-    ctaText: "View Project",
-    ctaLink: "#",
+
     content: () => (
       <p>
         Imajica is an enterprise web-based booking system for an aesthetic company. It streamlines appointment scheduling, client management, and service tracking, providing a seamless experience for both staff and clients. Built with a focus on efficiency, security, and user-friendly design.
@@ -37,8 +35,7 @@ const projects: Project[] = [
     year: "2025",
     stack: ["PHP", "Laravel", "MySQL", "Javascript", "Bootstrap"],
     src: "injap_enm1wc",
-    ctaText: "View Project",
-    ctaLink: "#",
+
     content: () => (
       <p>
         A Membership website for an organization, and streamlines selling of products inside their web system.
@@ -51,8 +48,7 @@ const projects: Project[] = [
     year: "2026",
     stack: ["PHP", "Laravel", "MySQL", "Javascript", "Bootstrap"],
     src: "delibites_up2l62",
-    ctaText: "View Project",
-    ctaLink: "#",
+
     content: () => (
       <p>
         Delibites Payroll System is a web-based Human Resource Information System (HRIS) designed for a food products company. It streamlines employee management, attendance tracking, and payroll processing, ensuring accurate and efficient handling of HR tasks while enhancing overall organizational productivity.
@@ -65,8 +61,7 @@ const projects: Project[] = [
     year: "2026",
     stack: ["React Native", "TypeScript", "Laravel", "RESTful API", "PostgreSQL"],
     src: "wingman_wiqbwo",
-    ctaText: "View Project",
-    ctaLink: "#",
+
     content: () => (
       <p>
 Wingman is a personal management tool designed for game boosters (pilots) to organize and track their boosting work in one place. Instead of managing everything manually, pilots can log their jobs, track progress, manage their customer list, and set their own pricing — all from a mobile app.
@@ -80,8 +75,7 @@ Wingman is a personal management tool designed for game boosters (pilots) to org
     year: "2024",
     stack: ["MongoDB", "Express", "React", "Node.js"],
     src: "cuisining_yawivu",
-    ctaText: "View Project",
-    ctaLink: "#",
+ 
     content: () => (
       <p>
         Cuisining is a web-based cooking simulator designed for culinary students. It provides interactive learning modules that allow students to practice cooking techniques, experiment with recipes, and enhance their culinary skills in a virtual environment.
@@ -95,8 +89,7 @@ Wingman is a personal management tool designed for game boosters (pilots) to org
     year: "2026",
     stack: ["React Native", "Expo", "Firebase", "Gemini Ai"],
     src: "ricement_jrxj7i",
-    ctaText: "View Project",
-    ctaLink: "#",
+
     content: () => (
       <p>
         an IoT-Based Rice Husk Ash Production System with Mobile App Control for Sustainable Cement Additive Manufacturing with Gemini AI Integration. This project focuses on creating a sustainable solution for cement production by utilizing rice husk ash, an agricultural waste product, as an additive. The system includes IoT sensors to monitor the production process and a React Native Expo mobile application for real-time control and monitoring. Additionally, Gemini AI is integrated to optimize the production process and enhance efficiency.
@@ -195,18 +188,6 @@ export default function ExpandableCardDemo() {
                     </motion.p>
                   </div>
 
-                  <motion.a
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    href={active.ctaLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="shrink-0 px-4 py-2 text-xs font-mono rounded-md border border-neutral-700 text-neutral-300 hover:border-neutral-500 hover:text-white transition-all"
-                  >
-                    {active.ctaText} ↗
-                  </motion.a>
                 </div>
 
                 {/* Stack pills */}
