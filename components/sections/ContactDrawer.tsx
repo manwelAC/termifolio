@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/drawer"
 import { FaGithub, FaInstagram, FaLinkedin, FaTiktok } from "react-icons/fa"
 import { SiGmail } from "react-icons/si"
-import Image from "next/image"
+import { IconType } from "react-icons"
 import { useState } from "react"
 import { CldImage } from 'next-cloudinary';
 
@@ -14,7 +14,16 @@ interface ContactDrawerProps {
   onOpenChange: (open: boolean) => void
 }
 
-const socials = [
+type Social = {
+  label: string
+  handle: string
+  href: string
+  icon: IconType
+  color: string
+  preview: string | null
+}
+
+const socials: Social[] = [
   {
     label: "GitHub",
     handle: "@manwelAC",
@@ -53,15 +62,15 @@ const socials = [
     href: "https://mail.google.com/mail/?view=cm&fs=1&to=johnmanuelcuerdo@gmail.com&su=Let's%20Connect&body=Hi%20John,%0A%0AI'd%20like%20to%20discuss%20a%20potential%20project%20or%20collaboration.%0A%0ALooking%20forward%20to%20hearing%20from%20you!",
     icon: SiGmail,
     color: "hover:text-red-400",
-    preview: null, // no preview
+    preview: null,
   },
 ]
 
 export function ContactDrawer({ open, onOpenChange }: ContactDrawerProps) {
   const [hoveredLabel, setHoveredLabel] = useState<string | null>(null)
 
-  const socialsWithPreview = socials.filter((s) => s.preview !== null)
-  const hoveredSocial = socials.find((s) => s.label === hoveredLabel && s.preview)
+  const socialsWithPreview = socials.filter((s): s is Social & { preview: string } => s.preview !== null)
+  const hoveredSocial = socialsWithPreview.find((s) => s.label === hoveredLabel)
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
@@ -105,7 +114,7 @@ export function ContactDrawer({ open, onOpenChange }: ContactDrawerProps) {
           >
             {hoveredSocial && (
               <CldImage
-                src={hoveredSocial.preview!}
+                src={hoveredSocial.preview}
                 alt={`${hoveredSocial.label} preview`}
                 width={256}
                 height={180}
@@ -117,7 +126,7 @@ export function ContactDrawer({ open, onOpenChange }: ContactDrawerProps) {
             </p>
           </div>
 
-          {socials.map(({ label, handle, href, icon: Icon, color, preview }) => (
+          {socials.map(({ label, handle, href, icon: Icon, color }) => (
             <a
               key={label}
               href={href}
