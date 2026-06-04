@@ -7,6 +7,7 @@ import { FaGithub, FaInstagram, FaLinkedin, FaTiktok } from "react-icons/fa"
 import { SiGmail } from "react-icons/si"
 import Image from "next/image"
 import { useState } from "react"
+import { CldImage } from 'next-cloudinary';
 
 interface ContactDrawerProps {
   open: boolean
@@ -20,7 +21,7 @@ const socials = [
     href: "https://github.com/manwelAC",
     icon: FaGithub,
     color: "hover:text-white",
-    preview: "/previews/github-preview.png",
+    preview: "github-preview_uympbr",
   },
   {
     label: "LinkedIn",
@@ -28,7 +29,7 @@ const socials = [
     href: "https://linkedin.com/in/manwelAC",
     icon: FaLinkedin,
     color: "hover:text-sky-400",
-    preview: "/previews/linkedin-preview.png",
+    preview: "linkedin-preview_qga1rf",
   },
   {
     label: "Instagram",
@@ -36,7 +37,7 @@ const socials = [
     href: "https://instagram.com/manwel.ac",
     icon: FaInstagram,
     color: "hover:text-pink-400",
-    preview: "/previews/instagram-preview.png",
+    preview: "instagram-preview_a9ygrw",
   },
   {
     label: "TikTok",
@@ -44,7 +45,7 @@ const socials = [
     href: "https://tiktok.com/@manwel.ac",
     icon: FaTiktok,
     color: "hover:text-white",
-    preview: "/previews/tiktok-preview.png",
+    preview: "tiktok-preview_iirhii",
   },
   {
     label: "Gmail",
@@ -103,7 +104,7 @@ export function ContactDrawer({ open, onOpenChange }: ContactDrawerProps) {
             }}
           >
             {hoveredSocial && (
-              <Image
+              <CldImage
                 src={hoveredSocial.preview!}
                 alt={`${hoveredSocial.label} preview`}
                 width={256}

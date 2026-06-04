@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/card"
 import { AvatarCircles } from "@/components/ui/avatar-circles"
 import { MagicCard } from "@/components/ui/magic-card"
+import { CldImage } from 'next-cloudinary';
+import { getCldImageUrl } from 'next-cloudinary';
 
 
 export function MagicCardDemo() {
@@ -39,7 +41,7 @@ export function MagicCardDemo() {
             <AvatarCircles
               avatarUrls={[
                 {
-                  imageUrl: "/images/avatar.png",
+                  imageUrl: getCldImageUrl({ src: "avatar_ukkhkw" }),
                   profileUrl: "https://github.com/manwelAC",
                 },
               ]}

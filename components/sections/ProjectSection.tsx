@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-
+import ExpandableCardDemo from "@/components/expandable-card-demo-grid"
 
 interface ProjectSectionProps {
   visible: boolean
@@ -18,12 +18,46 @@ export function ProjectSection({ visible }: ProjectSectionProps) {
   }, [visible])
 
   return (
-    <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
-      animate ? "max-w-[1200px] opacity-100" : "max-w-0 opacity-0"
-    }`}>
+    <div
+      className={`overflow-hidden transition-all duration-700 ease-in-out ${
+        animate ? "max-w-[1200px] opacity-100" : "max-w-0 opacity-0"
+      }`}
+    >
       <div className="w-[1200px] p-8 border border-neutral-800 rounded-lg">
-        <h2 className="text-xl font-bold text-foreground mb-4 font-mono">projects</h2>
-        <p className="text-muted-foreground font-sans">Project section placeholder</p>
+
+        {/* Header — matches ContactDrawer header rhythm */}
+        <div className="mb-8">
+          <p className="text-xs font-mono text-muted-foreground mb-3 tracking-widest uppercase">
+            selected work
+          </p>
+          <h2
+            className="text-3xl font-normal text-foreground leading-snug"
+            style={{ fontFamily: "Lora, serif" }}
+          >
+            Things I&apos;ve built
+            <br />
+            <span className="italic text-muted-foreground">with care.</span>
+          </h2>
+          <p
+            className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-md"
+            style={{ fontFamily: "Lora, serif" }}
+          >
+            A handful of projects that kept me up late — for the right reasons.
+            Click any card to read more.
+          </p>
+        </div>
+
+        <div className="w-full h-px bg-neutral-800 mb-8" />
+
+        <ExpandableCardDemo />
+
+        <p
+          className="mt-8 text-xs text-neutral-600 text-center"
+          style={{ fontFamily: "Lora, serif" }}
+        >
+          More on GitHub.
+        </p>
+
       </div>
     </div>
   )
