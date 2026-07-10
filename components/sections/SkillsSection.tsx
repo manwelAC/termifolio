@@ -4,10 +4,10 @@ import { useEffect, useState } from "react"
 
 const skills = {
   Languages: ["PHP", "JavaScript", "TypeScript"],
-  Frontend: ["React", "React Native", "Next.js", "Bootstrap", "Radix UI"],
+  Frontend: ["React", "React Native", "Next.js", "Bootstrap", "Angular"],
   Backend: ["Laravel", "Node.js"],
   Database: ["MySQL", "PostgreSQL", "Firebase"],
-  "DevOps & Tools": ["Vercel", "GitHub Actions", "Laravel Cloud"],
+  "DevOps & Tools": ["Vercel", "Bitbucket", "GitHub", "Laravel Cloud", "Jira"],
 }
 
 interface SkillsSectionProps {

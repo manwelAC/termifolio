@@ -18,6 +18,7 @@ const commands = [
   { cmd: "clear", desc: "Clear everything" },
   { cmd: "whoami", desc: "Fun one-liner" },
   { cmd: "sudo hire me", desc: "👀" },
+  { cmd: "gui", desc: "Switch to Bento view" },
 ]
 
 export function CommandList() {

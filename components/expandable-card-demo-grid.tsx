@@ -16,6 +16,21 @@ export type Project = {
 };
 
 const projects: Project[] = [
+
+  {
+    title: "Balitaan",
+    tagline: "presyo sa malapit.",
+    year: "2026",
+    stack: ["PHP", "Laravel", "PostgreSQL", "NextJs", "React", "Expo Go"],
+    src: "balitaan-bg_rrhwps",
+
+    content: () => (
+      <p>
+      Balitaan is a crowdsourced local price checker for Filipinos. It helps people answer: “What does this cost near me right now?” Users publish local price reports, browse nearby or personalized updates, and add community context through votes and comments.
+      </p>
+    ),
+  },
+
   {
     title: "Imajica - Booking System",
     tagline: "An Enterprise Web-based booking system for Aesthetic Company.",
