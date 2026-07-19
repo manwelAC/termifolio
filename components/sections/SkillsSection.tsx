@@ -25,10 +25,10 @@ export function SkillsSection({ visible }: SkillsSectionProps) {
   }, [visible])
 
   return (
-    <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
+    <div className={`w-full overflow-hidden transition-all duration-700 ease-in-out ${
       animate ? "max-w-[1200px] opacity-100" : "max-w-0 opacity-0"
     }`}>
-      <div className="w-[1200px] p-8 border border-neutral-800 rounded-lg space-y-6">
+      <div className="w-full space-y-6 rounded-lg border border-neutral-800 p-4 sm:p-6 lg:p-8">
 
         {/* Header */}
         <div className="border-b border-neutral-800 pb-4">
@@ -39,7 +39,7 @@ export function SkillsSection({ visible }: SkillsSectionProps) {
         </div>
 
         {/* Skill groups */}
-        <div className="grid grid-cols-2 gap-x-12 gap-y-6">
+        <div className="grid grid-cols-1 gap-x-12 gap-y-6 sm:grid-cols-2">
           {Object.entries(skills).map(([category, items]) => (
             <div key={category}>
               <p className="font-mono text-[10px] tracking-widest text-neutral-500 uppercase mb-3">

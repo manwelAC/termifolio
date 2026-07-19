@@ -19,11 +19,11 @@ export function ProjectSection({ visible }: ProjectSectionProps) {
 
   return (
     <div
-      className={`overflow-hidden transition-all duration-700 ease-in-out ${
+      className={`w-full overflow-hidden transition-all duration-700 ease-in-out ${
         animate ? "max-w-[1200px] opacity-100" : "max-w-0 opacity-0"
       }`}
     >
-      <div className="w-[1200px] p-8 border border-neutral-800 rounded-lg">
+      <div className="w-full rounded-lg border border-neutral-800 p-4 sm:p-6 lg:p-8">
 
         {/* Header — matches ContactDrawer header rhythm */}
         <div className="mb-8">
@@ -31,7 +31,7 @@ export function ProjectSection({ visible }: ProjectSectionProps) {
             selected work
           </p>
           <h2
-            className="text-3xl font-normal text-foreground leading-snug"
+            className="text-2xl font-normal text-foreground leading-snug sm:text-3xl"
             style={{ fontFamily: "Lora, serif" }}
           >
             Things I&apos;ve built
@@ -43,7 +43,6 @@ export function ProjectSection({ visible }: ProjectSectionProps) {
             style={{ fontFamily: "Lora, serif" }}
           >
             A handful of projects that kept me up late — for the right reasons.
-            Click any card to read more.
           </p>
         </div>
 

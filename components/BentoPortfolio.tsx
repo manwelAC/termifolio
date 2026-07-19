@@ -171,7 +171,7 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
               I build systems that make work simpler and smarter. Experienced in refactoring enterprise aesthetic systems, creating custom payroll solutions, and deploying web systems that businesses rely on. Focused on database design, system architecture, and robust clean APIs.
             </p>
             <Link
-              href="/blog"
+              href="/blog?from=bento"
               className="inline-flex items-center gap-2 rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-neutral-300 transition-colors hover:border-emerald-500/30 hover:text-emerald-300"
             >
               <BookOpen className="h-3.5 w-3.5" />

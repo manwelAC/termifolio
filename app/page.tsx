@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { use, useState } from "react"
 import { motion } from "motion/react"
 import { useRouter } from "next/navigation"
 import TerminalDemo from "@/components/terminal-demo";
@@ -20,11 +20,19 @@ import { ArrowLeft, LayoutGrid } from "lucide-react"
 
 type SectionKey = "about" | "about-2" | "about-3" | "projects" | "skills"  // ← removed contact
 
-export default function Home() {
+type HomeProps = {
+  searchParams: Promise<{ view?: string | string[] }>;
+};
+
+export default function Home({ searchParams }: HomeProps) {
+  const requestedView = use(searchParams).view;
+  const initialView = requestedView === "terminal" || requestedView === "bento"
+    ? requestedView
+    : null;
   const router = useRouter()
 
-  const [showSplash, setShowSplash] = useState(true)
-  const [viewMode, setViewMode] = useState<"onboarding" | "terminal" | "bento">("onboarding")
+  const [showSplash, setShowSplash] = useState(initialView === null)
+  const [viewMode, setViewMode] = useState<"onboarding" | "terminal" | "bento">(initialView ?? "onboarding")
 
   const [sections, setSections] = useState<Record<SectionKey, boolean>>({
     about: false,
@@ -53,7 +61,7 @@ export default function Home() {
 
   const handleCommand = (cmd: string): string[] => {
     if (cmd === "blog") {
-      router.push("/blog")
+      router.push("/blog?from=terminal")
       return []
     }
 
@@ -123,7 +131,12 @@ export default function Home() {
   }
 
   if (showSplash) {
-    return <SplashScreen onComplete={() => setShowSplash(false)} />;
+    return (
+      <>
+        <Onboarding onSelect={setViewMode} />
+        <SplashScreen onComplete={() => setShowSplash(false)} />
+      </>
+    );
   }
 
   if (viewMode === "onboarding") {
@@ -145,21 +158,9 @@ export default function Home() {
 
   return (
     <>
-      <motion.main
-        initial={{ opacity: 0, y: 10, scale: 0.995 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="relative min-h-screen bg-neutral-950 text-neutral-100 flex flex-col items-center"
-      >
+      <main className="relative min-h-screen bg-neutral-950 text-neutral-100 flex flex-col items-center">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(52,211,153,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(52,211,153,0.03)_1px,transparent_1px)] bg-[size:32px_32px]" />
         <div className="pointer-events-none absolute inset-y-0 left-1/2 w-full max-w-6xl -translate-x-1/2 border-x border-neutral-900" />
-        <motion.div
-          aria-hidden="true"
-          initial={{ y: "0vh", opacity: 0 }}
-          animate={{ y: "100vh", opacity: [0, 0.12, 0.12, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear", repeatDelay: 1.5 }}
-          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-px bg-emerald-300"
-        />
         {/* Navigation Header for Terminal View */}
         <motion.div
           initial={{ opacity: 0, y: -8 }}
@@ -228,9 +229,9 @@ export default function Home() {
           </motion.div>
         </motion.div>
 
-        <div className="relative z-10 flex w-full flex-col items-center gap-6 overflow-x-auto px-4 pb-16">
+        <div className="relative z-10 flex w-full max-w-[1232px] flex-col items-center gap-6 px-4 pb-16">
           {(sections["about-2"] || sections.about || sections["about-3"]) && (
-            <div className="flex flex-row gap-6">
+            <div className="flex w-full max-w-[1200px] flex-col gap-6 lg:flex-row">
               {sections["about-2"] && <About2Section visible={sections["about-2"]} />}
               {sections.about && <AboutSection visible={sections.about} />}
             </div>
@@ -246,7 +247,7 @@ export default function Home() {
 
         <ContactDrawer open={contactOpen} onOpenChange={setContactOpen} />
 
-      </motion.main>
+      </main>
     </>
   );
 }

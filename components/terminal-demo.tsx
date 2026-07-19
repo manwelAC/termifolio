@@ -90,7 +90,7 @@ export default function TerminalDemo({
       username="manuel-portfolio"
       onCommand={handleCommand}
       onClear={onClear}
-      enableSound
+      enableSound={false}
     />
   );
 }

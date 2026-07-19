@@ -16,8 +16,8 @@ export function AboutSection({ visible }: AboutSectionProps) {
   }, [visible])
 
   return (
-<div className="flex-1 min-w-0">
-  <div className="h-full p-8 border border-neutral-800 rounded-lg">
+<div className="w-full min-w-0 flex-1">
+  <div className="h-full rounded-lg border border-neutral-800 p-4 sm:p-6 lg:p-8">
     <BlurFadeTextDemo />
   </div>
 </div>

@@ -125,7 +125,7 @@ export interface TerminalRef {
 export const Terminal = forwardRef<TerminalRef, TerminalProps>(({
   username = "manuel-portfolio",
   className,
-  enableSound = true,
+  enableSound = false,
   onCommand,
   onClear,
 }, ref) => {
@@ -158,7 +158,23 @@ export const Terminal = forwardRef<TerminalRef, TerminalProps>(({
     }
   }, [lines, currentInput]);
 
-  const handleContainerClick = () => inputRef.current?.focus();
+  const moveCaretToEnd = () => {
+    const input = inputRef.current;
+    if (!input) return;
+
+    const end = input.value.length;
+    input.setSelectionRange(end, end);
+  };
+
+  const handleContainerClick = () => {
+    inputRef.current?.focus({ preventScroll: true });
+    requestAnimationFrame(moveCaretToEnd);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentInput(event.currentTarget.value);
+    requestAnimationFrame(moveCaretToEnd);
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     down(e.key === " " ? " " : e.key.length === 1 ? e.key : e.key);
@@ -219,8 +235,7 @@ export const Terminal = forwardRef<TerminalRef, TerminalProps>(({
 
   return (
     <div className={cn("w-full font-mono text-xs", className)} onClick={handleContainerClick}>
-      <div className="relative overflow-hidden rounded-lg border border-neutral-700 bg-neutral-950 shadow-[0_20px_60px_-28px_rgba(52,211,153,0.35)]">
-        <div className="absolute inset-x-0 top-0 z-10 h-px bg-emerald-300/70" />
+      <div className="relative overflow-hidden rounded-lg border border-neutral-700 bg-neutral-950 shadow-[0_0_55px_-22px_rgba(52,211,153,0.5)]">
         <div className="flex items-center gap-2 border-b border-neutral-800 bg-neutral-900/90 px-4 py-3">
           <div className="flex items-center gap-1.5">
             <div className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
@@ -268,9 +283,10 @@ export const Terminal = forwardRef<TerminalRef, TerminalProps>(({
 
       <input
         ref={inputRef}
-        className="absolute opacity-0 pointer-events-none w-0 h-0"
+        className="pointer-events-none absolute inset-x-4 bottom-4 h-8 w-[calc(100%-2rem)] opacity-0"
         value={currentInput}
-        onChange={(e) => setCurrentInput(e.target.value)}
+        onChange={handleInputChange}
+        onFocus={() => requestAnimationFrame(moveCaretToEnd)}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
         autoFocus

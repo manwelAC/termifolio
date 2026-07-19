@@ -31,7 +31,7 @@ const projects: Project[] = [
     tagline: "An Enterprise Web-based booking system for Aesthetic Company.",
     year: "2025",
     stack: ["PHP", "Laravel", "MySQL", "Javascript", "Bootstrap"],
-    src: "imajica_ho8tqk",
+    src: "imajica_yuot3h",
     content: () => (
       <p>
         Imajica is an enterprise web-based booking system for an aesthetic company. It streamlines appointment scheduling, client management, and service tracking, providing a seamless experience for both staff and clients. Built with a focus on efficiency, security, and user-friendly design.
@@ -43,7 +43,7 @@ const projects: Project[] = [
     tagline: "call for unity",
     year: "2025",
     stack: ["PHP", "Laravel", "MySQL", "Javascript", "Bootstrap"],
-    src: "injap_enm1wc",
+    src: "injap_oudaiu",
     content: () => (
       <p>
         A Membership website for an organization, and streamlines selling of products inside their web system.
@@ -55,7 +55,7 @@ const projects: Project[] = [
     tagline: "A web-based HRIS - Payroll System for a food products company",
     year: "2026",
     stack: ["PHP", "Laravel", "MySQL", "Javascript", "Bootstrap"],
-    src: "delibites_up2l62",
+    src: "delibites_a1rqc1",
     content: () => (
       <p>
         Delibites Payroll System is a web-based Human Resource Information System (HRIS) designed for a food products company. It streamlines employee management, attendance tracking, and payroll processing, ensuring accurate and efficient handling of HR tasks while enhancing overall organizational productivity.
