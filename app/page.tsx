@@ -1,19 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image";
+import { motion } from "motion/react"
 import TerminalDemo from "@/components/terminal-demo";
-import { MagicCard } from "@/components/ui/magic-card";
-import Link from "next/link"
-import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
 import { MagicCardDemo } from "@/components/ui/magic-card-demo"
 import { CommandList } from "@/components/command-list"
 import { AboutSection } from "@/components/sections/AboutSection"
 import { ProjectSection } from "@/components/sections/ProjectSection"
 import { SkillsSection } from "@/components/sections/SkillsSection"
 import { About2Section } from "@/components/sections/About2Section"
-import { About3Section } from "@/components/sections/About3Section"
 import { ContactDrawer } from "@/components/sections/ContactDrawer"
 import { SplashScreen } from "@/components/SplashScreen"
 import { Onboarding } from "@/components/Onboarding"
@@ -143,9 +138,28 @@ export default function Home() {
 
   return (
     <>
-      <main className="min-h-screen bg-background flex flex-col items-center">
+      <motion.main
+        initial={{ opacity: 0, y: 10, scale: 0.995 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="relative min-h-screen bg-neutral-950 text-neutral-100 flex flex-col items-center"
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(52,211,153,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(52,211,153,0.03)_1px,transparent_1px)] bg-[size:32px_32px]" />
+        <div className="pointer-events-none absolute inset-y-0 left-1/2 w-full max-w-6xl -translate-x-1/2 border-x border-neutral-900" />
+        <motion.div
+          aria-hidden="true"
+          initial={{ y: "0vh", opacity: 0 }}
+          animate={{ y: "100vh", opacity: [0, 0.12, 0.12, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear", repeatDelay: 1.5 }}
+          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-px bg-emerald-300"
+        />
         {/* Navigation Header for Terminal View */}
-        <div className="w-full max-w-6xl flex justify-between items-center px-4 pt-12">
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
+          className="relative z-10 w-full max-w-6xl flex justify-between items-center px-4 pt-10"
+        >
           <button
             onClick={() => setViewMode("onboarding")}
             className="flex items-center gap-2 font-mono text-xs text-neutral-400 hover:text-neutral-100 transition-colors py-2 px-4 rounded-lg border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900/60"
@@ -153,6 +167,12 @@ export default function Home() {
             <ArrowLeft className="h-4 w-4" />
             Change Experience
           </button>
+          <div className="hidden items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-neutral-500 md:flex">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+            Terminal workspace
+            <span className="text-neutral-700">//</span>
+            Session active
+          </div>
           <button
             onClick={() => setViewMode("bento")}
             className="flex items-center gap-2 font-mono text-xs text-neutral-400 hover:text-neutral-100 transition-colors py-2 px-4 rounded-lg border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900/60"
@@ -160,13 +180,29 @@ export default function Home() {
             <LayoutGrid className="h-4 w-4" />
             Bento Showcase
           </button>
-        </div>
+        </motion.div>
 
-        <div className="flex items-start gap-6 justify-center py-16 w-full">
-          <div className="w-64 shrink-0">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+          }}
+          className="relative z-10 grid w-full max-w-6xl grid-cols-1 items-start gap-4 px-4 py-12 lg:grid-cols-[210px_minmax(0,1fr)_220px]"
+        >
+          <motion.div
+            variants={{ hidden: { opacity: 0, x: -14 }, visible: { opacity: 1, x: 0 } }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="order-2 lg:order-1"
+          >
             <CommandList />
-          </div>
-          <div className="w-[600px] shrink-0">
+          </motion.div>
+          <motion.div
+            variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="order-1 min-w-0 lg:order-2"
+          >
             <TerminalDemo
               onCommand={handleCommand}
               onClear={() => {
@@ -175,13 +211,17 @@ export default function Home() {
                 setContactOpen(false)
               }}
             />
-          </div>
-          <div className="w-64 shrink-0">
+          </motion.div>
+          <motion.div
+            variants={{ hidden: { opacity: 0, x: 14 }, visible: { opacity: 1, x: 0 } }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="order-3"
+          >
             <MagicCardDemo />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="flex flex-col gap-6 pb-16">
+        <div className="relative z-10 flex w-full flex-col items-center gap-6 overflow-x-auto px-4 pb-16">
           {(sections["about-2"] || sections.about || sections["about-3"]) && (
             <div className="flex flex-row gap-6">
               {sections["about-2"] && <About2Section visible={sections["about-2"]} />}
@@ -199,7 +239,7 @@ export default function Home() {
 
         <ContactDrawer open={contactOpen} onOpenChange={setContactOpen} />
 
-      </main>
+      </motion.main>
     </>
   );
 }

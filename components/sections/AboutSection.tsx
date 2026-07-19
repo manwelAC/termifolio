@@ -6,7 +6,7 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ visible }: AboutSectionProps) {
-  const [animate, setAnimate] = useState(false)
+  const [, setAnimate] = useState(false)
 
   useEffect(() => {
     if (visible) {

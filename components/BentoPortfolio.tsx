@@ -32,6 +32,20 @@ interface BentoPortfolioProps {
   onSwitchToTerminal: () => void;
 }
 
+function PanelTag({ index, label, tone = "emerald" }: { index: string; label: string; tone?: "emerald" | "purple" }) {
+  const accent = tone === "emerald" ? "bg-emerald-400" : "bg-purple-400";
+  const text = tone === "emerald" ? "text-emerald-400/70" : "text-purple-400/70";
+
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between px-4">
+      <span className={`h-px w-16 ${accent}`} />
+      <span className={`pt-3 font-mono text-[9px] uppercase tracking-widest ${text}`}>
+        {index} / {label}
+      </span>
+    </div>
+  );
+}
+
 export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTerminal }: BentoPortfolioProps) {
   const [localTime, setLocalTime] = useState("");
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -70,15 +84,12 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
     <div className="relative min-h-screen bg-neutral-950 text-neutral-100 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Scroll Progress Bar */}
       <div 
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-emerald-500 to-purple-500 z-50 transition-all duration-75"
+        className="fixed top-0 left-0 right-0 h-0.5 bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.5)] z-50 transition-all duration-75"
         style={{ width: `${scrollProgress}%` }}
       />
       {/* Background Dot Matrix Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
-      
-      {/* Ambient Radial Color Blobs */}
-      <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] rounded-full bg-purple-500/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[5%] w-[600px] h-[600px] rounded-full bg-emerald-500/5 blur-[150px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(52,211,153,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(52,211,153,0.035)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+      <div className="pointer-events-none absolute inset-y-0 left-1/2 w-full max-w-6xl -translate-x-1/2 border-x border-neutral-900/80" />
 
       {/* Navigation Header */}
       <div className="relative z-10 w-full max-w-6xl flex justify-between items-center mb-12">
@@ -89,6 +100,13 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
           <ArrowLeft className="h-4 w-4" />
           Change Experience
         </button>
+
+        <div className="hidden items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-neutral-500 md:flex">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          Bento workspace
+          <span className="text-neutral-700">//</span>
+          Portfolio v1.0
+        </div>
 
         <button
           onClick={onSwitchToTerminal}

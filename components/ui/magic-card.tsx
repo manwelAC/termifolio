@@ -8,16 +8,6 @@ import {
   useSpring,
 } from "motion/react"
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import { useTheme } from "next-themes"
 
 import { cn } from "@/lib/utils"
@@ -86,7 +76,10 @@ export function MagicCard(props: MagicCardProps) {
   const { theme, systemTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setMounted(true))
+    return () => cancelAnimationFrame(frame)
+  }, [])
 
   const isDarkTheme = useMemo(() => {
     if (!mounted) return true

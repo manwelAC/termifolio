@@ -12,7 +12,7 @@ export function BlurFadeTextDemo() {
 
       <BlurFade delay={0.25 * 2} inView>
         <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl xl:text-6xl font-lora">
-          Hi, I'm John Manuel Cuerdo.
+          Hi, I&apos;m John Manuel Cuerdo.
         </h1>
       </BlurFade>
 
@@ -37,7 +37,7 @@ export function BlurFadeTextDemo() {
 
    <BlurFade delay={0.25 * 5} inView>
   <p className="text-base leading-relaxed text-white/70 font-sans">
-    Lately, I've been deepening my focus on{" "}
+    Lately, I&apos;ve been deepening my focus on{" "}
     <span className="text-white font-medium">System Architecture</span> and{" "}
     <span className="text-white font-medium">Database Design</span> — not just to write
     better backend code, but to build systems that are structured well enough for{" "}

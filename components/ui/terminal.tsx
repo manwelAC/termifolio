@@ -210,34 +210,38 @@ export const Terminal = forwardRef<TerminalRef, TerminalProps>(({
 
   const prompt = (
     <span>
-      <span className="text-sky-500">{username}</span>
-      <span className="text-emerald-600">:</span>
-      <span className="text-sky-400">~</span>
+      <span className="text-emerald-300">{username}</span>
+      <span className="text-neutral-600">:</span>
+      <span className="text-purple-300">~</span>
       <span className="text-neutral-500">$</span>{" "}
     </span>
   );
 
   return (
     <div className={cn("w-full font-mono text-xs", className)} onClick={handleContainerClick}>
-      <div className="overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 shadow-2xl">
-        <div className="flex items-center gap-2 bg-neutral-800 px-4 py-3">
+      <div className="relative overflow-hidden rounded-lg border border-neutral-700 bg-neutral-950 shadow-[0_20px_60px_-28px_rgba(52,211,153,0.35)]">
+        <div className="absolute inset-x-0 top-0 z-10 h-px bg-emerald-300/70" />
+        <div className="flex items-center gap-2 border-b border-neutral-800 bg-neutral-900/90 px-4 py-3">
           <div className="flex items-center gap-1.5">
-            <div className="h-3 w-3 rounded-full bg-red-500" />
-            <div className="h-3 w-3 rounded-full bg-yellow-500" />
-            <div className="h-3 w-3 rounded-full bg-green-500" />
+            <div className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+            <div className="h-2.5 w-2.5 rounded-full bg-amber-300/80" />
+            <div className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
           </div>
           <div className="flex-1 text-center">
-            <span className="text-xs text-neutral-400">{username} — bash</span>
+            <span className="text-[10px] uppercase tracking-wider text-neutral-500">{username} // bash</span>
           </div>
-          <div className="w-[52px]" />
+          <div className="flex w-[52px] items-center justify-end gap-1.5 font-mono text-[8px] uppercase text-emerald-400/70">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+            Live
+          </div>
         </div>
 
         <div
           ref={contentRef}
-          className="no-visible-scrollbar h-80 overflow-y-auto p-4 cursor-text"
+          className="no-visible-scrollbar h-[420px] cursor-text overflow-y-auto bg-[linear-gradient(rgba(52,211,153,0.025)_1px,transparent_1px)] bg-[size:100%_24px] p-5"
         >
           {lines.map((line, i) => (
-            <div key={i} className="leading-relaxed whitespace-pre-wrap">
+            <div key={i} className="min-h-5 leading-relaxed whitespace-pre-wrap">
               {line.type === "command" ? (
                 <span>{prompt}<SyntaxHighlightedText text={line.content} /></span>
               ) : (
@@ -250,10 +254,15 @@ export const Terminal = forwardRef<TerminalRef, TerminalProps>(({
             {prompt}
             <SyntaxHighlightedText text={currentInput} />
             <span className={cn(
-              "inline-block h-4 w-2 bg-neutral-300 align-middle transition-opacity duration-100",
+              "inline-block h-4 w-2 bg-emerald-300 align-middle shadow-[0_0_8px_rgba(110,231,183,0.55)] transition-opacity duration-100",
               !cursorVisible && "opacity-0"
             )} />
           </div>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-neutral-800 bg-neutral-900/70 px-4 py-2 font-mono text-[8px] uppercase tracking-widest text-neutral-600">
+          <span>UTF-8 // Interactive</span>
+          <span className="text-purple-300/70">Type help to begin</span>
         </div>
       </div>
 

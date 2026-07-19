@@ -1,60 +1,44 @@
-"use client"
-import { useEffect, useState } from "react"
-import { useTheme } from "next-themes"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { MagicCard } from "@/components/ui/magic-card"
+"use client";
 
 const commands = [
+  { cmd: "help", desc: "Show every command" },
   { cmd: "about", desc: "Who I am" },
-  { cmd: "projects", desc: "What I've built" },
-  { cmd: "skills", desc: "What I work with" },
-  { cmd: "contact", desc: "Get in touch" },
-  { cmd: "close [section]", desc: "Remove a section" },
-  { cmd: "clear", desc: "Clear everything" },
-  { cmd: "whoami", desc: "Fun one-liner" },
-  { cmd: "sudo hire me", desc: "👀" },
-  { cmd: "gui", desc: "Switch to Bento view" },
-]
+  { cmd: "projects", desc: "Selected work" },
+  { cmd: "skills", desc: "Technical stack" },
+  { cmd: "contact", desc: "Start a conversation" },
+];
 
 export function CommandList() {
-  const { theme, systemTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted
-    ? (theme === "system" ? systemTheme : theme) === "dark"
-    : true
-
   return (
-    <Card className="w-full max-w-sm border-none rounded-xl p-0 shadow-none">
-      <MagicCard
-        mode="orb"
-        glowFrom={isDark ? "#ee4f27" : "#E9D5FF"}
-        glowTo={isDark ? "#6b21ef" : "#FBCFE8"}
-        className="p-0"
-      >
-        <CardHeader className="border-border border-b p-4">
-          <CardTitle className="font-mono text-sm">Available Commands</CardTitle>
-        </CardHeader>
-        <CardContent className="p-4">
-          <div className="space-y-2">
-            {commands.map((item) => (
-              <div key={item.cmd} className="flex items-start gap-3">
-                <span className="font-mono text-xs text-emerald-400 min-w-fit">{item.cmd}</span>
-                <span className="text-xs text-neutral-400">{item.desc}</span>
-              </div>
-            ))}
+    <aside className="overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900/40 backdrop-blur-sm">
+      <div className="flex items-center justify-between border-b border-neutral-800 px-4 py-3">
+        <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400">
+          Quick commands
+        </span>
+        <span className="font-mono text-[9px] text-emerald-400/70">05</span>
+      </div>
+
+      <div className="divide-y divide-neutral-800/70 px-4">
+        {commands.map((item, index) => (
+          <div key={item.cmd} className="group py-3">
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-[9px] text-neutral-600">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <code className="font-mono text-[11px] text-emerald-300 transition-colors group-hover:text-emerald-200">
+                {item.cmd}
+              </code>
+            </div>
+            <p className="mt-1 pl-6 text-[10px] leading-relaxed text-neutral-500">
+              {item.desc}
+            </p>
           </div>
-        </CardContent>
-      </MagicCard>
-    </Card>
-  )
+        ))}
+      </div>
+
+      <div className="border-t border-neutral-800 bg-neutral-950/50 px-4 py-3 font-mono text-[9px] leading-relaxed text-neutral-600">
+        Type <span className="text-purple-300">help</span> for advanced commands.
+      </div>
+    </aside>
+  );
 }
