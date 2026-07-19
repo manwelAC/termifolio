@@ -4,6 +4,7 @@ const commands = [
   { cmd: "help", desc: "Show every command" },
   { cmd: "about", desc: "Who I am" },
   { cmd: "projects", desc: "Selected work" },
+  { cmd: "blog", desc: "Notes and writing" },
   { cmd: "skills", desc: "Technical stack" },
   { cmd: "contact", desc: "Start a conversation" },
 ];
@@ -15,7 +16,7 @@ export function CommandList() {
         <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400">
           Quick commands
         </span>
-        <span className="font-mono text-[9px] text-emerald-400/70">05</span>
+        <span className="font-mono text-[9px] text-emerald-400/70">06</span>
       </div>
 
       <div className="divide-y divide-neutral-800/70 px-4">

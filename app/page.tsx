@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "motion/react"
+import { useRouter } from "next/navigation"
 import TerminalDemo from "@/components/terminal-demo";
 import { MagicCardDemo } from "@/components/ui/magic-card-demo"
 import { CommandList } from "@/components/command-list"
@@ -20,6 +21,7 @@ import { ArrowLeft, LayoutGrid } from "lucide-react"
 type SectionKey = "about" | "about-2" | "about-3" | "projects" | "skills"  // ← removed contact
 
 export default function Home() {
+  const router = useRouter()
 
   const [showSplash, setShowSplash] = useState(true)
   const [viewMode, setViewMode] = useState<"onboarding" | "terminal" | "bento">("onboarding")
@@ -50,6 +52,11 @@ export default function Home() {
 ]
 
   const handleCommand = (cmd: string): string[] => {
+    if (cmd === "blog") {
+      router.push("/blog")
+      return []
+    }
+
     if (cmd === "gui" || cmd === "bento") {
       setViewMode("bento")
       return []

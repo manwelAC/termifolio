@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { 
   Terminal, 
@@ -11,7 +12,8 @@ import {
   Database, 
   Globe, 
   Cpu, 
-  FileText 
+  FileText,
+  BookOpen,
 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { Timeline } from "@/components/sections/timeline";
@@ -125,10 +127,11 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="md:col-span-2 rounded-2xl border border-neutral-800 bg-neutral-900/10 backdrop-blur-md p-8 flex flex-col md:flex-row gap-8 items-start hover:border-neutral-600/50 hover:bg-neutral-900/20 hover:shadow-[0_0_50px_-12px_rgba(255,255,255,0.02)] transition-all duration-300 group"
+          className="group relative md:col-span-2 rounded-lg border border-neutral-800 bg-neutral-900/20 p-8 pt-10 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/30 hover:bg-neutral-900/30 hover:shadow-[0_16px_45px_-28px_rgba(52,211,153,0.35)] flex flex-col md:flex-row gap-8 items-start"
         >
+          <PanelTag index="01" label="profile" />
           {/* Avatar Container */}
-          <div className="relative h-24 w-24 shrink-0 rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-950 transition-transform duration-300 group-hover:scale-105 group-hover:border-neutral-700">
+          <div className="relative h-24 w-24 shrink-0 rounded-lg overflow-hidden border border-neutral-800 bg-neutral-950 transition-transform duration-300 group-hover:scale-[1.03] group-hover:border-emerald-500/30">
             <CldImage
               src="avatar_ukkhkw"
               alt="Manuel Cuerdo"
@@ -142,10 +145,10 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
           <div className="space-y-4 w-full">
             <div>
               <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-widest mb-2">
-                <span className="text-emerald-500/80">📍 Caloocan City, PH</span>
-                <span className="text-neutral-600">•</span>
+                <span className="text-emerald-500/80">Caloocan City, PH</span>
+                <span className="text-neutral-600">/</span>
                 <span className="text-neutral-400 font-medium">{localTime || "11:50 AM"}</span>
-                <span className="text-neutral-600">•</span>
+                <span className="text-neutral-600">/</span>
                 <span className="flex items-center gap-1.5 text-emerald-400">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   Available
@@ -167,6 +170,13 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
             <p className="text-sm text-neutral-400 leading-relaxed font-sans">
               I build systems that make work simpler and smarter. Experienced in refactoring enterprise aesthetic systems, creating custom payroll solutions, and deploying web systems that businesses rely on. Focused on database design, system architecture, and robust clean APIs.
             </p>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-neutral-300 transition-colors hover:border-emerald-500/30 hover:text-emerald-300"
+            >
+              <BookOpen className="h-3.5 w-3.5" />
+              Read my blog
+            </Link>
           </div>
         </motion.div>
 
@@ -175,8 +185,9 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="rounded-2xl border border-neutral-800 bg-neutral-900/10 backdrop-blur-md p-8 flex flex-col justify-between hover:border-emerald-500/20 hover:bg-neutral-900/20 hover:shadow-[0_0_50px_-12px_rgba(16,185,129,0.1)] transition-all duration-300"
+          className="relative rounded-lg border border-neutral-800 bg-neutral-900/20 p-8 pt-10 backdrop-blur-md flex flex-col justify-between transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/30 hover:bg-neutral-900/30 hover:shadow-[0_16px_45px_-28px_rgba(52,211,153,0.35)]"
         >
+          <PanelTag index="02" label="connect" />
           <div className="space-y-4">
             <p className="font-mono text-[10px] uppercase tracking-widest text-emerald-500/80">
               Get in touch
@@ -195,7 +206,7 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
           <div className="space-y-3 pt-6">
             <button
               onClick={onOpenContact}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-mono text-xs text-neutral-950 bg-neutral-100 hover:bg-neutral-200 transition-all font-semibold hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-mono text-xs text-neutral-950 bg-emerald-300 hover:bg-emerald-200 transition-all font-semibold hover:shadow-[0_0_20px_rgba(110,231,183,0.2)]"
             >
               <Mail className="h-4 w-4" />
               Contact Drawer
@@ -206,7 +217,7 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
                 href="https://github.com/manwelAC"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-neutral-800 bg-neutral-950 hover:bg-neutral-900 hover:border-neutral-700 transition-colors font-mono text-xs text-neutral-400 hover:text-neutral-100"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg border border-neutral-800 bg-neutral-950 hover:bg-neutral-900 hover:border-neutral-700 transition-colors font-mono text-xs text-neutral-400 hover:text-neutral-100"
               >
                 <FaGithub className="h-4 w-4" />
                 GitHub
@@ -215,7 +226,7 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-neutral-800 bg-neutral-950 hover:bg-neutral-900 hover:border-neutral-700 transition-colors font-mono text-xs text-neutral-400 hover:text-neutral-100"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg border border-neutral-800 bg-neutral-950 hover:bg-neutral-900 hover:border-neutral-700 transition-colors font-mono text-xs text-neutral-400 hover:text-neutral-100"
               >
                 <ExternalLink className="h-4 w-4" />
                 LinkedIn
@@ -229,8 +240,9 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="md:col-span-2 rounded-2xl border border-neutral-800 bg-neutral-900/10 backdrop-blur-md p-8 space-y-6 hover:border-neutral-600/50 hover:bg-neutral-900/20 hover:shadow-[0_0_50px_-12px_rgba(255,255,255,0.02)] transition-all duration-300"
+          className="relative md:col-span-2 rounded-lg border border-neutral-800 bg-neutral-900/20 p-8 pt-10 space-y-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/30 hover:bg-neutral-900/30 hover:shadow-[0_16px_45px_-28px_rgba(52,211,153,0.3)]"
         >
+          <PanelTag index="03" label="stack" />
           <div>
             <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 mb-1">
               technical stack
@@ -276,8 +288,9 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="rounded-2xl border border-neutral-800 bg-neutral-900/10 backdrop-blur-md p-8 space-y-6 hover:border-purple-500/20 hover:bg-neutral-900/20 hover:shadow-[0_0_50px_-12px_rgba(168,85,247,0.1)] transition-all duration-300"
+          className="relative rounded-lg border border-neutral-800 bg-neutral-900/20 p-8 pt-10 space-y-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-500/30 hover:bg-neutral-900/30 hover:shadow-[0_16px_45px_-28px_rgba(192,132,252,0.3)]"
         >
+          <PanelTag index="04" label="timeline" tone="purple" />
           <div>
             <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 mb-1">
               journey
@@ -302,8 +315,9 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="md:col-span-3 rounded-2xl border border-neutral-800 bg-neutral-900/10 backdrop-blur-md p-8 space-y-6 hover:border-purple-500/20 hover:bg-neutral-900/20 hover:shadow-[0_0_50px_-12px_rgba(168,85,247,0.1)] transition-all duration-300"
+          className="relative md:col-span-3 rounded-lg border border-neutral-800 bg-neutral-900/20 p-8 pt-10 space-y-6 backdrop-blur-md transition-all duration-300 hover:border-purple-500/30 hover:bg-neutral-900/30 hover:shadow-[0_16px_45px_-28px_rgba(192,132,252,0.3)]"
         >
+          <PanelTag index="05" label="selected work" tone="purple" />
           <div>
             <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 mb-1">
               portfolio
@@ -315,7 +329,7 @@ export function BentoPortfolio({ onBackToOnboarding, onOpenContact, onSwitchToTe
               Selected Work <span className="italic text-neutral-400">with care.</span>
             </h2>
             <p className="text-sm font-sans text-neutral-400 mt-2">
-              Click any project card to view stack details and summary write-ups.
+              A focused index of the systems, applications, and experiments I have built.
             </p>
           </div>
 
