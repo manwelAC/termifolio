@@ -1,0 +1,33 @@
+## Context
+
+In companies there are systems that are obviously legacy and can't be maintained with just a local environment or just your pc 
+that's why learning how to use Virtual Machines is a must these days.
+
+## I don't know what's Virtual Machines
+
+When I was in college these things weren't taught to us that's why when I finally landed the job it was the first thing I learned. 
+
+## What really is Virtual Machines?
+
+for me Virtual machine is an isolated operating-system environment used to reproduce the platform, tools, configuration, and behavior expected by an application without changing or depending entirely on the host operating system.
+
+## What's the purpose of Virtual Machines?
+
+Its main purpose is not merely to “run another operating system.” Its purpose is to create a controlled development environment.
+
+### My Example work flow
+`
+
+Physical laptop
+└── Windows
+    └── WSL 2 lightweight virtual machine
+        └── Ubuntu Linux environment
+            └── Docker
+                ├── Laravel API container
+                ├── Angular container
+                ├── MySQL container
+                ├── Worker container
+                └── Nginx container
+
+`
+
