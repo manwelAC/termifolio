@@ -33,6 +33,11 @@ const articleComponents: MDXComponents = {
       {children}
     </blockquote>
   ),
+  pre: ({ children }) => (
+    <pre className="my-8 overflow-x-auto rounded-lg border border-neutral-800 bg-neutral-950/80 p-5 font-mono text-sm leading-7 text-neutral-200 shadow-[0_0_40px_rgba(16,185,129,0.06)]">
+      {children}
+    </pre>
+  ),
   code: ({ children }) => (
     <code className="rounded bg-neutral-900 px-1.5 py-0.5 font-mono text-sm text-emerald-200">
       {children}

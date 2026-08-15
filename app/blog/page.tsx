@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, BookOpen } from "lucide-react";
+import { ArrowLeft, BookOpen } from "lucide-react";
 import { blogPosts } from "@/lib/blog-posts";
 import { BlogPageReveal } from "@/components/BlogPageReveal";
+import { BlogPostList } from "@/components/BlogPostList";
 
 export const metadata: Metadata = {
   title: "Blog | Manuel Cuerdo",
@@ -60,40 +61,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             </p>
           </div>
 
-          <div className="space-y-12">
-            {blogPosts.map((post, index) => (
-              <article
-                key={`${post.title}-${index}`}
-                className="group grid gap-4 py-4 sm:grid-cols-[80px_minmax(0,1fr)] sm:gap-8"
-              >
-                <div className="font-mono text-[10px] uppercase tracking-widest text-purple-300/80">
-                  {String(index + 1).padStart(2, "0")} / Note
-                </div>
-                <Link href={`/blog/${post.slug}${sourceQuery}`} className="min-w-0">
-                  <div className="flex items-start justify-between gap-5">
-                    <div>
-                      <h2
-                        className="text-2xl font-normal text-neutral-100 transition-colors group-hover:text-emerald-200"
-                        style={{ fontFamily: "Lora, serif" }}
-                      >
-                        {post.title}
-                      </h2>
-                      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-400">
-                        {post.description}
-                      </p>
-                    </div>
-                    <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-neutral-600 transition-colors group-hover:text-emerald-300" />
-                  </div>
-                  <div className="mt-5 flex items-center gap-4">
-                    <span className="h-px w-12 bg-emerald-300/70 transition-all duration-300 group-hover:w-20" />
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-neutral-600">
-                      {post.publishedAt}
-                    </span>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
+          <BlogPostList posts={blogPosts} sourceQuery={sourceQuery} />
         </section>
 
         <footer className="flex items-center justify-between py-5 font-mono text-[9px] uppercase tracking-widest text-neutral-600">
